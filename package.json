@@ -1,0 +1,15 @@
+{
+  "name": "mongo-express-1",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "consolidate": "~0.9.1",
+    "swig": "~1.1.0"
+  }
+}
