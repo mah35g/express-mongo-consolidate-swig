@@ -8,6 +8,18 @@ app.engine('html', cons.swig);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
+app.use(express.bodyParser()); // Registering middleware with express
+app.use(app.router);
+
+function errorHandler(err, req, res, next){
+	console.error(err, req, res, next);
+	console.error(err.stack);
+	res.status(500);
+	res.render('error-template', {'error':err});
+}
+
+app.use(errorHandler);
+
 var mongoclient = new MongoClient(new Server('localhost', 27017, 
 	{'native_parser' : true}));
 
@@ -22,6 +34,20 @@ app.get('/', function(req, res){
 	});
 	
 }); 
+
+
+app.get('/get-fruits', function(req, res, next){
+	res.render('fruitPicker', {'fruits':['apple', 'orange', 'banana', 'peach', 'grapes']});
+});
+
+app.post('/fav-fruit', function(req, res, next){
+	var fav = req.body.fruit; // body will registered only if you call bodyparser.
+	if(typeof fav == 'undefined') {
+		next(Error('Please choose a fruit'));
+	} else {
+		res.send('Your favourite fruit is : ' + fav);
+	}
+});
 
 app.get('/:name', function(req, res){
 	var name = req.params.name;
