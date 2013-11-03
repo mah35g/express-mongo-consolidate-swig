@@ -20,3 +20,8 @@ Node:
 
 > npm install swig
 
+
+######Code Explaination
+
+
+app.use(express.bodyParser()); // Registering middleware with express
